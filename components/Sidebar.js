@@ -1,23 +1,26 @@
 import Link from "next/link";
+import { useState } from "react";
 import {SiShopware} from 'react-icons/si';
 import {MdOutlineCancel} from 'react-icons/md';
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-
+import {useStateContext} from '../contexts/ContextProvider'
 import {links } from '../data/dummy';
  const Sidebar = () => {
+	// const {activeMenu}=useStateContext();
+	const [activeMenu, setActiveMenu] = useState(true);
 	
-  let activMenu =true;
+
   return (
-    <div className={`shadow-xl  sidebar dark:bg-secondry-dark-bg bg-main-bg ${ activMenu?  'w-72 fixed': 'w-0'}   `}>
+    <div className={`shadow-xl  sidebar dark:bg-secondry-dark-bg bg-main-bg ${ activeMenu?  'w-72 fixed': 'w-0'}   `}>
 		<div className="ml-3 pb-10 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto ">
-			{ activMenu && (<>
+			{ activeMenu && (<>
 			<div className="flex justify-between items-center">
 				<Link href="/" >
-					<a onClick={()=>{}} className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900 dark:text-white"><SiShopware/> Admin</a>
+					<a onClick={()=> setActiveMenu(false)} className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900 dark:text-white"><SiShopware/> Admin</a>
 				
 				</Link>
 <TooltipComponent content="Menu" position="BottomCenter">
-	<button onClick={()=>{} } className="sticky text-xl mt-5 mr-3 flex items-center justify-center hover:text-red-400 "><MdOutlineCancel/></button>
+	<button onClick={()=>setActiveMenu((prevActiveMenu)=>!prevActiveMenu ) } className="text-xl mt-5 mr-3 flex items-center justify-center hover:text-red-400 "><MdOutlineCancel/></button>
 </TooltipComponent>
 				</div>
 				<div className="mt-10">
